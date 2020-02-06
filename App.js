@@ -2,27 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Animated} from 'react-native';
 
 const App = () => {
-  const [ballY, setBallY] = useState(new Animated.Value(0));
-  const [ballX] = useState(Animated.divide(ballY, 2));
+  const [ballY] = useState(new Animated.Value(0));
+  const [ballX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    /*
-    Animated.timing(ballY, {
-      toValue: 500,
-      duration: 3000,
-    }).start();
-    */
+    Animated.stagger(300, [
+      Animated.timing(ballY, {
+        toValue: 500,
+        duration: 1000,
+      }),
 
-    /*
-    Animated.spring(ballY, {
-      toValue: 500,
-      bounciness: 20,
-    }).start();
-    */
-
-    Animated.decay(ballY, {
-      velocity: 1,
-    }).start();
+      Animated.timing(ballX, {
+        toValue: 300,
+        duration: 1000,
+      }),
+    ]).start();
   }, []);
 
   return (

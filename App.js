@@ -3,48 +3,28 @@ import {StyleSheet, View, Animated} from 'react-native';
 
 const App = () => {
   const [ballY] = useState(new Animated.Value(0));
-  const [ballX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(ballY, {
-          toValue: 500,
-          duration: 1000,
-        }),
-
-        Animated.delay(200),
-
-        Animated.timing(ballX, {
-          toValue: 200,
-          duration: 1000,
-        }),
-
-        Animated.delay(200),
-
-        Animated.timing(ballY, {
-          toValue: 0,
-          duration: 1000,
-        }),
-
-        Animated.delay(200),
-
-        Animated.timing(ballX, {
-          toValue: 0,
-          duration: 1000,
-        }),
-
-        Animated.delay(200),
-      ]),
-      {
-        iterations: 2,
-      },
-    ).start();
+    Animated.timing(ballY, {
+      toValue: 300,
+      duration: 3000,
+    }).start();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.ball, {top: ballY, left: ballX}]} />
+      <Animated.View
+        style={[
+          styles.ball,
+          {
+            top: ballY,
+            opacity: ballY.interpolate({
+              inputRange: [0, 150, 300],
+              outputRange: [1, 1, 0],
+            }),
+          },
+        ]}
+      />
     </View>
   );
 };

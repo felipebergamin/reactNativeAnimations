@@ -6,17 +6,40 @@ const App = () => {
   const [ballX] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    Animated.stagger(300, [
-      Animated.timing(ballY, {
-        toValue: 500,
-        duration: 1000,
-      }),
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(ballY, {
+          toValue: 500,
+          duration: 1000,
+        }),
 
-      Animated.timing(ballX, {
-        toValue: 300,
-        duration: 1000,
-      }),
-    ]).start();
+        Animated.delay(200),
+
+        Animated.timing(ballX, {
+          toValue: 200,
+          duration: 1000,
+        }),
+
+        Animated.delay(200),
+
+        Animated.timing(ballY, {
+          toValue: 0,
+          duration: 1000,
+        }),
+
+        Animated.delay(200),
+
+        Animated.timing(ballX, {
+          toValue: 0,
+          duration: 1000,
+        }),
+
+        Animated.delay(200),
+      ]),
+      {
+        iterations: 2,
+      },
+    ).start();
   }, []);
 
   return (

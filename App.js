@@ -6,7 +6,7 @@ const App = () => {
 
   useEffect(() => {
     Animated.timing(ballY, {
-      toValue: 300,
+      toValue: 500,
       duration: 3000,
     }).start();
   }, []);
@@ -19,8 +19,9 @@ const App = () => {
           {
             top: ballY,
             opacity: ballY.interpolate({
-              inputRange: [0, 150, 300],
-              outputRange: [1, 1, 0],
+              inputRange: [0, 300],
+              outputRange: [1, 0.2],
+              extrapolate: 'clamp',
             }),
           },
         ]}
